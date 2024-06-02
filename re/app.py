@@ -3,6 +3,9 @@ import preprocessor,helper
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+app = streamlit(__name__)
+
 st.sidebar.title("Whatsapp Chat Analyzer")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")

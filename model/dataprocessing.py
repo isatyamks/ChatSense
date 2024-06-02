@@ -13,6 +13,7 @@ f=open('chatdata.txt','r',encoding='utf-8')
 data=f.read()
 
 
+<<<<<<< HEAD
 
 
 pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
@@ -25,6 +26,18 @@ messages
 
 
 dates = re.findall(pattern, data)
+=======
+pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s-\s'
 
-dates
-print(len(messages),len(dates))
+
+>>>>>>> d12373bdda13b05bd417aa606f60bb2926def8ab
+
+
+#give the pattern and data to the re module to find the pattern in the data.....
+
+message = re.split(pattern, data)[1:]
+
+
+#print the message now
+
+message

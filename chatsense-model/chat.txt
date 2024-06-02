@@ -101,7 +101,6 @@
 08/09/23, 11:25 pm - Satyam Kumar: <Media omitted>
 09/09/23, 2:30 pm - Satyam Dimri: 3 15 pe ready rhio library chalenge 👍🏻
 09/09/23, 10:45 pm - Satyam Dimri: Bhej bhaii jitna hogya
-<<<<<<< HEAD
 09/09/23, 10:47 pm - Satyam Kumar: <Media omitted>
 09/09/23, 10:47 pm - Satyam Kumar: <Media omitted>
 09/09/23, 10:47 pm - Satyam Kumar: <Media omitted>
@@ -326,16 +325,12 @@ Lotte Choco pie 1
 04/11/23, 10:55 am - Satyam Dimri: <Media omitted>
 04/11/23, 10:55 am - Satyam Dimri: <Media omitted>
 04/11/23, 10:55 am - Satyam Dimri: <Media omitted>
-=======
-09/09/23, 10:47 pm - Satyam Kumar: <Media omitted>4/11/23, 10:55 am - Satyam Dimri: <Media omitted>
->>>>>>> d12373bdda13b05bd417aa606f60bb2926def8ab
 06/11/23, 5:53 pm - Satyam Kumar: https://9xflix.men/m/
 06/11/23, 5:54 pm - Satyam Kumar: https://9xflix.men/m/panchayat-s02/
 12/11/23, 11:04 am - Satyam Dimri: <Media omitted>
 12/11/23, 11:27 am - Satyam Kumar: happi diwali
 12/11/23, 11:38 am - Satyam Dimri: Hepi diwalii🎼🎶
 20/11/23, 11:31 am - Satyam Kumar: Cp lec me proxy lagwa dena plzzzz🥹
-<<<<<<< HEAD
 20/11/23, 11:32 am - Satyam Kumar: Ek tuhi hai jo uske lec phone use karta hai isiliye tujhe mesaage kiya❤️
 20/11/23, 12:01 pm - Satyam Dimri: Will try👍🏻
 20/11/23, 12:03 pm - Satyam Dimri: Hogya
@@ -863,9 +858,6 @@ int main() {
 
     printf("Entered elements: ");
     for (int i = 0; i < n; i++) {
-=======
-20/11/23, 11:32 am - Satyam Kumar: Ek tuhi hai jo uske lec phone use karta hai isiliye tujhe mesaage kiya❤️ (int i = 0; i < n; i++) {
->>>>>>> d12373bdda13b05bd417aa606f60bb2926def8ab
         printf("%d ", *(arr + i));
     }
 
@@ -916,7 +908,6 @@ int main() {
 
     printf("\nSum: %d", sum);
 
-<<<<<<< HEAD
     return 0;
 }
 03/01/24, 6:25 pm - Satyam Kumar: le
@@ -1764,9 +1755,6 @@ int main()
 
     return 0;
 }
-=======
- }
->>>>>>> d12373bdda13b05bd417aa606f60bb2926def8ab
 09/05/24, 11:02 pm - Satyam Dimri: 5 <This message was edited>
 09/05/24, 11:03 pm - Satyam Kumar: #include <iostream>
 #include <fstream>

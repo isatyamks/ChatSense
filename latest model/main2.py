@@ -5,8 +5,9 @@ from matplotlib.font_manager import FontProperties
 import seaborn as sns
 import functions
 
+
 # Load your data file
-file = 'D:\whatsapp-chat-analysis\chat.txt'
+file = 'b10chat.txt'
 
 # Generate DataFrame
 df = functions.generateDataFrame(file)
@@ -41,38 +42,12 @@ plt.xticks(rotation=45)
 plt.show()
 
 
-
-
-
-# Emoji Analysis
-emojiDF = functions.getEmoji(df)
-
-plt.figure(figsize=(8, 8))
-plt.pie(emojiDF[1].head(), labels=emojiDF[0].head(), autopct="%0.2f", shadow=True)
-plt.legend()
-plt.title("Emoji Analysis")
-plt.show()
-
-
-
-# Print Chat Statistics
-print("Chat Statistics")
-print(f"Total Messages: {msg_count}")
-print(f"Total Words: {word_count}")
-print(f"Media Shared: {media_cnt}")
-print(f"Links Shared: {links_cnt}")
-print(f"Messages Deleted: {deleted_msgs_cnt}")
-
-# User Activity Count
 if selected_user == 'Everyone':
-    x = df['User'].value_counts().head()
+    x = df['User'].value_counts()  
     name = x.index
     count = x.values
 
-    print("Messaging Frequency")
-    print("Messaging Percentage Count of Users")
-    print(round((df['User'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(columns={'User': 'name', 'count': 'percent'}))
-
+    
     plt.bar(name, count)
     plt.xlabel("Users")
     plt.ylabel("Message Sent")
@@ -81,48 +56,66 @@ if selected_user == 'Everyone':
 
 # Emoji Analysis
 emojiDF = functions.getEmoji(df)
-print("Emoji Analysis")
-print(emojiDF)
+
 
 plt.pie(emojiDF[1].head(), labels=emojiDF[0].head(), autopct="%0.2f", shadow=True)
 plt.legend()
 plt.show()
 
-# Common Words
-commonWord = functions.MostCommonWords(df)
-plt.bar(commonWord[0], commonWord[1])
-plt.xlabel("Words")
-plt.ylabel("Frequency")
-plt.xticks(rotation='vertical')
-plt.title('Most Frequent Words Used In Chat')
+
+emoji_unicode = emojiDF[0].head()
+counts = emojiDF[1].head()
+
+# Create a bar plot
+plt.bar(range(len(emoji_unicode)), counts, align='center', alpha=0.7)
+plt.xticks(range(len(emoji_unicode)), emoji_unicode, rotation='vertical')
+
+plt.xlabel('Emoji')
+plt.ylabel('Count')
+plt.title('Emoji Counts')
+
 plt.show()
 
-# Monthly Timeline
-timeline = functions.getMonthlyTimeline(df)
-plt.plot(timeline['time'], timeline['Message'])
-plt.xlabel("Month")
-plt.ylabel("Messages Sent")
-plt.xticks(rotation='vertical')
-plt.title('Monthly Timeline')
-plt.show()
 
-# Daily Timeline
-functions.dailytimeline(df)
 
-# Weekly and Monthly Activity
-print('Most Busy Days')
-functions.WeekAct(df)
-print('Most Busy Months')
-functions.MonthAct(df)
 
-# WordCloud
-df_wc = functions.create_wordcloud(df)
-plt.imshow(df_wc)
-plt.title("Wordcloud")
-plt.show()
 
-# Weekly Activity Map
-user_heatmap = functions.activity_heatmap(df)
-sns.heatmap(user_heatmap)
-plt.title("Weekly Activity Map")
-plt.show()
+
+# # Common Words
+# commonWord = functions.MostCommonWords(df)
+# plt.bar(commonWord[0], commonWord[1])
+# plt.xlabel("Words")
+# plt.ylabel("Frequency")
+# plt.xticks(rotation='vertical')
+# plt.title('Most Frequent Words Used In Chat ' )
+# plt.show()
+
+# # Monthly Timeline
+# timeline = functions.getMonthlyTimeline(df)
+# plt.plot(timeline['time'], timeline['Message'])
+# plt.xlabel("Month")
+# plt.ylabel("Messages Sent")
+# plt.xticks(rotation='vertical')
+# plt.title('Monthly Timeline')
+# plt.show()
+
+# # Daily Timeline
+# functions.dailytimeline(df)
+
+# # Weekly and Monthly Activity
+# print('Most Busy Days')
+# functions.WeekAct(df)
+# print('Most Busy Months')
+# functions.MonthAct(df)
+
+# # WordCloud
+# df_wc = functions.create_wordcloud(df)
+# plt.imshow(df_wc)
+# plt.title("Wordcloud")
+# plt.show()
+
+# # Weekly Activity Map
+# user_heatmap = functions.activity_heatmap(df)
+# sns.heatmap(user_heatmap)
+# plt.title("Weekly Activity Map")
+# plt.show()

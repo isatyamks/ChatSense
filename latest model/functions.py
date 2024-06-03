@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import urlextract
 import emoji
+import emojipedia
 from wordcloud import WordCloud
 
 # Function to generate DataFrame from file

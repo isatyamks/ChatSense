@@ -36,17 +36,7 @@ def generateDataFrame(file):
             message.append(s[2])
     
     df = pd.DataFrame(list(zip(date, time, users, message)), columns=["Date", "Time(U)", "User", "Message"])
-    return df
-
-
-
-
-
-
-
-# # Function to preprocess the DataFrame
-def PreProcess(df, dayfirst):
-    df['Date'] = pd.to_datetime(df['Date'], dayfirst=dayfirst)
+    df['Date'] = pd.to_datetime(df['Date'])
     df['Time'] = pd.to_datetime(df['Time(U)']).dt.time
     df['year'] = df['Date'].apply(lambda x: int(str(x)[:4]))
     df['month'] = df['Date'].apply(lambda x: int(str(x)[5:7]))
@@ -55,6 +45,13 @@ def PreProcess(df, dayfirst):
     df['hour'] = df['Time'].apply(lambda x: int(str(x)[:2]))
     df['month_name'] = df['Date'].apply(lambda x: x.month_name())
     return df
+    
+
+
+
+
+
+
 
 
 
@@ -177,14 +174,15 @@ def getEmoji(df):
 
 def MostCommonWords(df):
     with open('stop_hinglish.txt') as f:
-        stop_words = f.read()
-    
+        stop_words = f.read().splitlines()
+
     words = []
     for message in df['Message']:
         for word in message.lower().split():
             if word not in stop_words:
                 words.append(word)
-    commonWord= pd.DataFrame(Counter(words).most_common(20))
+
+    commonWord = pd.DataFrame(Counter(words).most_common(20))
 
     plt.bar(commonWord[0], commonWord[1])
     plt.xlabel("Words")
@@ -284,23 +282,31 @@ def MonthAct(df):
 
 
 
+# this is the function to create the world_clouds
 
 def create_wordcloud(df):
-    def filter_short_words(message):
-        words = message.split()
-        filtered_words = [word for word in words if len(word) > 1]
-        return " ".join(filtered_words)
-    
-    # Apply the filter function to each message
-    df['Filtered_Message'] = df['Message'].apply(filter_short_words)
-    
+    with open('stop_hinglish.txt', 'r') as f:
+        stop_words = f.read().splitlines()
+
+    def remove_stop_words(message):
+        y = []
+        for word in message.lower().split():
+            if word not in stop_words:
+                y.append(word)
+        return " ".join(y)
+
+   
+    df['Filtered_Message'] = df['Message'].apply(remove_stop_words)
+
     wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
     df_wc = wc.generate(df['Filtered_Message'].str.cat(sep=" "))
-   
+
     plt.imshow(df_wc, interpolation='bilinear')
-    plt.axis('off')  # Turn off the axis
+    plt.axis('off')  
     plt.title("Wordcloud")
     plt.show()
+
+
 
 
 

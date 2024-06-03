@@ -1,12 +1,7 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
-import seaborn as sns
 import dataprocessor
 
 # Load your data file
-file = 'b10chat.txt'
+file = 'dumchat.txt'
 
 
 
@@ -22,7 +17,7 @@ df = dataprocessor.generateDataFrame(file)
 
 
 
-#user statistics
+
 
 dataprocessor.getStats(df)
 

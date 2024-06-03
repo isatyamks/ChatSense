@@ -314,16 +314,19 @@ def create_wordcloud(df):
 
 
 
-# Function to create activity heatmap
+
+
 def activity_heatmap(df):
     period = []
     for hour in df[['day', 'hour']]['hour']:
-        if hour == 23:
-            period.append(str(hour) + "-" + str('00'))
-        elif hour == 0:
-            period.append(str('00') + "-" + str(hour + 1))
+        if hour == 0:
+            period.append('12 AM - 1 AM')
+        elif hour == 12:
+            period.append('12 PM - 1 PM')
+        elif hour < 12:
+            period.append(f'{hour} AM - {hour + 1} AM')
         else:
-            period.append(str(hour) + "-" + str(hour + 1))
+            period.append(f'{hour - 12} PM - {hour - 11} PM')
 
     df['period'] = period
     user_heatmap = df.pivot_table(index='day', columns='period', values='Message', aggfunc='count').fillna(0)

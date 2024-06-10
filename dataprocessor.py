@@ -7,19 +7,23 @@ import urlextract
 import emoji
 from wordcloud import WordCloud
 
-
-
-
-# Function to generate DataFrame from file
+# File se DataFrame generate karne ka function
 def generateDataFrame(file):
+    # File ko read karna
     with open(file, 'r', encoding='utf-8') as f:
         data = f.read()
     
+    # Unnecessary spaces ko replace karna
     data = data.replace('\u202f', ' ')
     data = data.replace('\n', ' ')
+    
+    # Date-time format define karna
     dt_format = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s?(?:AM\s|PM\s|am\s|pm\s)?-\s'
+    
+    # Messages aur date-times ko alag karna
     msgs = re.split(dt_format, data)[1:]
     date_times = re.findall(dt_format, data)
+    
     date, time = [], []
     for dt in date_times:
         date.append(re.search(r'\d{1,2}/\d{1,2}/\d{2,4}', dt).group())
@@ -35,72 +39,45 @@ def generateDataFrame(file):
             users.append(s[1])
             message.append(s[2])
     
+    # DataFrame create karna
     df = pd.DataFrame(list(zip(date, time, users, message)), columns=["Date", "Time(U)", "User", "Message"])
+    
+    # Date aur time ko appropriate format mein convert karna
     df['Date'] = pd.to_datetime(df['Date'])
     df['Time'] = pd.to_datetime(df['Time(U)']).dt.time
+    
+    # Additional columns add karna
     df['year'] = df['Date'].apply(lambda x: int(str(x)[:4]))
     df['month'] = df['Date'].apply(lambda x: int(str(x)[5:7]))
     df['date'] = df['Date'].apply(lambda x: int(str(x)[8:10]))
     df['day'] = df['Date'].apply(lambda x: x.day_name())
     df['hour'] = df['Time'].apply(lambda x: int(str(x)[:2]))
     df['month_name'] = df['Date'].apply(lambda x: x.month_name())
-    return df
     
+    return df
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Function to get unique users
-
+# Unique users ko retrieve karne ka function
 def getUsers(df):
     users = df['User'].unique().tolist()
     users.sort()
+    
     if 'Notifications' in users:
         users.remove('Notifications')
     
     users.insert(0, 'Everyone')
     
-    # selected_user = "Everyone"
-    
-    # if selected_user != "Everyone":
+    # User activity count plot karna
     x = df['User'].value_counts()  
     name = x.index
     count = x.values
+    
     plt.bar(name, count)
     plt.xlabel("Users")
     plt.ylabel("Message Sent")
     plt.xticks(rotation='vertical')
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Function to get chat statistics
+# Chat statistics ko retrieve karne ka function
 def getStats(df):
     media = df[df['Message'] == "<Media omitted> "]
     media_cnt = media.shape[0]
@@ -127,7 +104,7 @@ def getStats(df):
     word_count = len(word_list)
     msg_count = df.shape[0]
     
-    # return df, media_cnt, deleted_msgs_cnt, links_cnt, word_count, msg_count
+    # Statistics ko plot karna
     stats_labels = ['Total Messages', 'Total Words', 'Media Shared', 'Links Shared', 'Messages Deleted']
     stats_values = [msg_count, word_count, media_cnt, links_cnt, deleted_msgs_cnt]
 
@@ -139,19 +116,12 @@ def getStats(df):
     plt.xticks(rotation=45)
     plt.show()
 
-
-
-
-
-
-
-
-
-# Function to get emoji analysis
+# Emoji analysis karne ka function
 def getEmoji(df):
     emojis = []
     for message in df['Message']:
         emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
+    
     emojiDF = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
 
     plt.title('Emoji Analysis')
@@ -162,19 +132,7 @@ def getEmoji(df):
     plt.legend()
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-# Function to get most common words
-
+# Most common words retrieve karne ka function
 def MostCommonWords(df):
     with open('miscellaneous files\stop_hinglish.txt') as f:
         stop_words = f.read().splitlines()
@@ -194,60 +152,39 @@ def MostCommonWords(df):
     plt.title('Most Frequent Words Used In Chat')
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-# Function to get monthly timeline
+# Monthly timeline retrieve karne ka function
 def getMonthlyTimeline(df):
     df.columns = df.columns.str.strip()
     df = df.reset_index()
+    
     timeline = df.groupby(['year', 'month']).count()['Message'].reset_index()
     time = [str(timeline['month'][i]) + "-" + str(timeline['year'][i]) for i in range(timeline.shape[0])]
     timeline['time'] = time
+    
     plt.plot(timeline['time'], timeline['Message'])
     plt.xlabel("Month")
     plt.ylabel("Messages Sent")
     plt.xticks(rotation='vertical')
     plt.title('Monthly Timeline')
     plt.show()
+    
     return timeline
 
-
-
-
-
-
-
-
-
-
-# Function to create daily timeline plot
+# Daily timeline plot create karne ka function
 def dailytimeline(df):
     df['taarek'] = df['Date']
     daily_timeline = df.groupby('taarek').count()['Message'].reset_index()
+    
     fig, ax = plt.subplots()
     ax.plot(daily_timeline['taarek'], daily_timeline['Message'])
     ax.set_ylabel("Messages Sent")
     plt.title('Daily Timeline')
     plt.show()
 
-
-
-
-
-
-
-# Function to create week activity plot
+# Week activity plot create karne ka function
 def WeekAct(df):
     x = df['day'].value_counts()
+    
     fig, ax = plt.subplots()
     ax.bar(x.index, x.values)
     ax.set_xlabel("Days")
@@ -255,14 +192,10 @@ def WeekAct(df):
     plt.xticks(rotation='vertical')
     plt.show()
 
-
-
-
-
-
-# Function to create month activity plot
+# Month activity plot create karne ka function
 def MonthAct(df):
     x = df['month_name'].value_counts()
+    
     fig, ax = plt.subplots()
     ax.bar(x.index, x.values)
     ax.set_xlabel("Months")
@@ -270,23 +203,7 @@ def MonthAct(df):
     plt.xticks(rotation='vertical')
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# this is the function to create the world_clouds
-
+# Wordcloud create karne ka function
 def create_wordcloud(df):
     with open('miscellaneous files\stop_hinglish.txt', 'r') as f:
         stop_words = f.read().splitlines()
@@ -298,7 +215,6 @@ def create_wordcloud(df):
                 y.append(word)
         return " ".join(y)
 
-   
     df['Filtered_Message'] = df['Message'].apply(remove_stop_words)
 
     wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
@@ -309,16 +225,7 @@ def create_wordcloud(df):
     plt.title("Wordcloud")
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
+# Activity heatmap create karne ka function
 def activity_heatmap(df):
     period = []
     for hour in df[['day', 'hour']]['hour']:
@@ -332,6 +239,7 @@ def activity_heatmap(df):
             period.append(f'{hour - 12} PM - {hour - 11} PM')
 
     df['period'] = period
+    
     user_heatmap = df.pivot_table(index='day', columns='period', values='Message', aggfunc='count').fillna(0)
     sns.heatmap(user_heatmap)
     plt.title("Weekly Activity Map")

@@ -68,17 +68,20 @@ def getUsers(df):
     users.sort()
     if 'Notifications' in users:
         users.remove('Notifications')
+    
     users.insert(0, 'Everyone')
-    selected_user = "Everyone"
-    if selected_user == "Everyone":
-        x = df['User'].value_counts()  
-        name = x.index
-        count = x.values
-        plt.bar(name, count)
-        plt.xlabel("Users")
-        plt.ylabel("Message Sent")
-        plt.xticks(rotation='vertical')
-        plt.show()
+    
+    # selected_user = "Everyone"
+    
+    # if selected_user != "Everyone":
+    x = df['User'].value_counts()  
+    name = x.index
+    count = x.values
+    plt.bar(name, count)
+    plt.xlabel("Users")
+    plt.ylabel("Message Sent")
+    plt.xticks(rotation='vertical')
+    plt.show()
 
 
 
@@ -173,7 +176,7 @@ def getEmoji(df):
 # Function to get most common words
 
 def MostCommonWords(df):
-    with open('stop_hinglish.txt') as f:
+    with open('D:\CodeHub\chatsense\model\stop_hinglish.txt') as f:
         stop_words = f.read().splitlines()
 
     words = []
@@ -285,7 +288,7 @@ def MonthAct(df):
 # this is the function to create the world_clouds
 
 def create_wordcloud(df):
-    with open('stop_hinglish.txt', 'r') as f:
+    with open('D:"\C"odeHub\chatsense\model\stop_hinglish.txt', 'r') as f:
         stop_words = f.read().splitlines()
 
     def remove_stop_words(message):

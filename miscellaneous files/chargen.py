@@ -1,3 +1,6 @@
+
+#ignore this function ,i made this only to create some random words which i want to remove the stop words
+
 def char_gen():
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     with open('comb.txt', 'w') as file:

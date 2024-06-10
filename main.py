@@ -1,10 +1,10 @@
 import dataprocessor
 
 # Yeh group chat data ka file path hai
-file = 'data_chats\_chat_group_data.txt'
+#file = 'data_chats\kaggle_api_data.txt'
 
 # Yeh individual chat data ka file path hai
-#file = 'data_chats\_chat_2_data.txt'
+file = 'data_chats\_chat_2_data.txt'
 
 # Chat data ko DataFrame mein convert karna
 df = dataprocessor.generateDataFrame(file)

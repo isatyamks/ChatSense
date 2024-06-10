@@ -176,7 +176,7 @@ def getEmoji(df):
 # Function to get most common words
 
 def MostCommonWords(df):
-    with open('D:\CodeHub\chatsense\model\stop_hinglish.txt') as f:
+    with open('miscellaneous files\stop_hinglish.txt') as f:
         stop_words = f.read().splitlines()
 
     words = []
@@ -288,7 +288,7 @@ def MonthAct(df):
 # this is the function to create the world_clouds
 
 def create_wordcloud(df):
-    with open('D:"\C"odeHub\chatsense\model\stop_hinglish.txt', 'r') as f:
+    with open('miscellaneous files\stop_hinglish.txt', 'r') as f:
         stop_words = f.read().splitlines()
 
     def remove_stop_words(message):

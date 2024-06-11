@@ -3,43 +3,54 @@ import dataprocessor
 
 
 
-# Yeh individual chat data ka file path hai
-file = 'data_chats\_chat_2_data.txt'
+file = 'data_chats\_chat_4_data.txt'
 
 
 
-# Chat data ko DataFrame mein convert karna
+
 df = dataprocessor.generateDataFrame(file)
 
-# DataFrame ke pehle kuch rows dekhne ke liye 
+# DataFrame 
 # print(df.head())
 
-# User ke statistics nikalne kaa function call
+# User ke statistics 
 dataprocessor.getStats(df)
 
-# User activity count nikalne kaa function call
+# User activity count 
 dataprocessor.getUsers(df)
 
-# Emoji analysis aur unki frequency dekhne ke liye funcall
+# Emoji analysis 
 dataprocessor.getEmoji(df)
 
-# Sabse zyada use hone wale words nikalne ka  function call
+# Sabse zyada used words
 dataprocessor.MostCommonWords(df)
 
-# Monthly timeline nikalna
+# Monthly timeline 
 timeline = dataprocessor.getMonthlyTimeline(df)
 
-# Daily timeline nikalne ka call
+
+# # if selected_user != "Everyone":
+#     x = df['User'].value_counts()  
+#     name = x.index
+#     count = x.values
+#     plt.bar(name, count)
+#     plt.xlabel("Users")
+#     plt.ylabel("Message Sent")
+#     plt.xticks(rotation='vertical')
+#     plt.show()
+
+
+# Daily timeline 
 dataprocessor.dailytimeline(df)
 
-# Sabse busy days nikalne call
+# Sabse busy days 
 dataprocessor.WeekAct(df)
 
-# Sabse busy months nikalne funcall
+# Sabse busy months 
 dataprocessor.MonthAct(df)
 
-# WordCloud  ka fun call
+# WordCloud  
 dataprocessor.create_wordcloud(df)
 
-# Activity heatmap  kaa fun call
+# Activity heatmap 
 dataprocessor.activity_heatmap(df)

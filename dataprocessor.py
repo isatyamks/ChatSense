@@ -81,9 +81,9 @@ def getUsers(df):
     
     users.insert(0, 'Everyone')
     
-    # selected_user = "Everyone"
+#     selected_user = "Everyone"
     
-    # if selected_user != "Everyone":
+# if selected_user != "Everyone":
     x = df['User'].value_counts()  
     name = x.index
     count = x.values
@@ -143,9 +143,9 @@ def getStats(df):
 
     plt.figure(figsize=(10, 6))
     plt.bar(stats_labels, stats_values, color=['blue', 'green', 'orange', 'red', 'purple'])
-    plt.xlabel("Statistic")
-    plt.ylabel("Count")
-    plt.title("Chat Statistics")
+    plt.xlabel("Type of items in chat")
+    plt.ylabel("Numbers")
+    plt.title("Chat Statistics of Type of  items shared")
     plt.xticks(rotation=45)
     plt.show()
 
@@ -186,7 +186,8 @@ def getEmoji(df):
 # Function to get most common words
 
 def MostCommonWords(df):
-    with open('miscellaneous files\stop_hinglish.txt') as f:
+    file_2='miscellaneous_files/_stop_hinglish.txt'
+    with open(file_2) as f:
         stop_words = f.read().splitlines()
 
     words = []
@@ -298,7 +299,7 @@ def MonthAct(df):
 # this is the function to create the world_clouds
 
 def create_wordcloud(df):
-    with open('miscellaneous files\stop_hinglish.txt', 'r') as f:
+    with open('miscellaneous_files\_stop_hinglish.txt', 'r') as f:
         stop_words = f.read().splitlines()
 
     def remove_stop_words(message):

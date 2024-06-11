@@ -17,7 +17,15 @@ def generateDataFrame(file):
     
     data = data.replace('\u202f', ' ')
     data = data.replace('\n', ' ')
+
+
+    #this is one of the most imp part of re because it is the filter which filter the each part of our chat
+    
+    #this is best form of regular expression pattern which i got from chatgpt after prompting too much.....
     dt_format = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s?(?:AM\s|PM\s|am\s|pm\s)?-\s'
+    
+    
+    
     msgs = re.split(dt_format, data)[1:]
     date_times = re.findall(dt_format, data)
     date, time = [], []
@@ -35,6 +43,8 @@ def generateDataFrame(file):
             users.append(s[1])
             message.append(s[2])
     
+
+
     df = pd.DataFrame(list(zip(date, time, users, message)), columns=["Date", "Time(U)", "User", "Message"])
     df['Date'] = pd.to_datetime(df['Date'])
     df['Time'] = pd.to_datetime(df['Time(U)']).dt.time
